@@ -1,4 +1,4 @@
-import 'package:todo_app/menu-drawer.dart';
+import 'package:todo_app/main-screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo App',
+      title: 'TODO App',
       theme: ThemeData(
         primarySwatch: Colors.indigo,
       ),
@@ -20,24 +20,20 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(
           title: Text('TODO'),
+          backgroundColor: Colors.indigoAccent,
+          titleTextStyle: TextStyle(
+              fontSize: 24,
+              color: Color.fromARGB(255, 0, 0, 0),
+              fontWeight: FontWeight.w500),
           actions: [
             Padding(
               padding: const EdgeInsets.all(20.0),
-              child: Icon(Icons.task_alt_rounded),
+              child: Icon(
+                Icons.task_alt_rounded,
+              ),
             )
           ],
         ),
-        drawer: MenuDrawer(),
-        bottomNavigationBar: BottomNavigationBar(items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home_rounded),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.add_task_rounded), label: 'Add Tasks'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.person_2_rounded), label: 'Profile'),
-        ]),
         body: SingleChildScrollView(
           child: Container(
             padding: const EdgeInsets.all(20),
@@ -71,7 +67,15 @@ class MyApp extends StatelessWidget {
                   const SizedBox(
                     height: 2,
                   ),
-                  ElevatedButton(onPressed: () {}, child: Text('Log In')),
+                  ElevatedButton(
+                    child: const Text('Log In'),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => MainScreen()),
+                      );
+                    },
+                  ),
                 ],
               ),
             ),
