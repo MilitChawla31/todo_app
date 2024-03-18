@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app/menu-drawer.dart';
+import 'package:todo_app/navigation-bar.dart';
 
-class MainScreen extends StatelessWidget{
+class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -9,56 +10,73 @@ class MainScreen extends StatelessWidget{
       theme: ThemeData(
         primarySwatch: Colors.indigo,
       ),
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('TODO'),
-          backgroundColor: Colors.indigoAccent,
-          titleTextStyle: TextStyle(fontSize: 24, color: Color.fromARGB(255, 0, 0, 0), fontWeight: FontWeight.w500),
-          actions: [
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Icon(Icons.task_alt_rounded, ),
-            )
-          ],
-        ),
-        drawer: MenuDrawer(),
-        bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: Colors.indigoAccent,
-          selectedItemColor: Colors.white,
-          unselectedItemColor: Colors.black,
-          items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home_rounded),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.add_task_rounded), label: 'Add Tasks'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.person_2_rounded), label: 'Profile'),
-        ]),
-        body: SingleChildScrollView(
-          child: Container(
-            padding: const EdgeInsets.all(20),
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    'Log In',
-                    style: TextStyle(fontSize: 28),
-                  ),
-                  SizedBox(height: 20),
-                  Image.network(
-                    'https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png',
-                    height: 200,
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
+      home: WatchlistScreen(),
+    );
+  }
+}
+
+class WatchlistScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('TODO'),
+        backgroundColor: Colors.indigoAccent,
       ),
+      drawer: MenuDrawer(),
+      bottomNavigationBar: CustomBottomNavigationBar(),
+      body: ListView(
+        children: const [
+          WatchlistItemCompact(
+            title: 'Complete Project',
+            priority: 'Urgent',
+            completeBy: '19-03-2024',
+          ),
+          WatchlistItemCompact(
+            title: 'Pre Placement Test',
+            priority: 'Important',
+            completeBy: '28-03-2024',
+          ),
+          WatchlistItemCompact(
+            title: 'Apply for Internship',
+            priority: 'Not Important',
+            completeBy: '30-04-2024',
+          ),
+        ]
+            .map((widget) => Padding(
+                  padding:
+                      EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                  child: Card(
+                    elevation: 4,
+                    child: widget,
+                  ),
+                ))
+            .toList(),
+      ),
+    );
+  }
+}
+
+class WatchlistItemCompact extends StatelessWidget {
+  final String title;
+  final String priority;
+  final String completeBy;
+
+  const WatchlistItemCompact({
+    Key? key,
+    required this.title,
+    required this.priority,
+    required this.completeBy,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      title: Text(title),
+      subtitle: Text('Priority: $priority\nComplete By: $completeBy'),
+      onTap: () {
+        //Handle tapping on the task item (if needed)
+      },
     );
   }
 }

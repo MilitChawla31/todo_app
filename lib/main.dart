@@ -1,5 +1,7 @@
 import 'package:todo_app/main-screen.dart';
 import 'package:flutter/material.dart';
+import 'package:todo_app/menu-drawer.dart';
+import 'package:todo_app/navigation-bar.dart';
 
 void main() {
   runApp(const MyApp());
@@ -34,6 +36,8 @@ class MyApp extends StatelessWidget {
             )
           ],
         ),
+        drawer: MenuDrawer(),
+        bottomNavigationBar: CustomBottomNavigationBar(),
         body: SingleChildScrollView(
           child: Container(
             padding: const EdgeInsets.all(20),
@@ -68,14 +72,13 @@ class MyApp extends StatelessWidget {
                     height: 2,
                   ),
                   ElevatedButton(
-                    child: const Text('Log In'),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => MainScreen()),
-                      );
-                    },
-                  ),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => MainScreen()),
+                        );
+                      },
+                      child: const Text('Log In')),
                 ],
               ),
             ),

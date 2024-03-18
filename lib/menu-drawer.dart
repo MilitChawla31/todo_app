@@ -1,4 +1,6 @@
 // import 'package:first_app/basic-navigation.dart';
+import 'package:todo_app/add-task.dart';
+import 'package:todo_app/main-screen.dart';
 import 'package:todo_app/main.dart';
 // import 'package:first_app/register-screen.dart';
 import 'package:flutter/material.dart';
@@ -16,45 +18,50 @@ class MenuDrawer extends StatelessWidget {
           //   style: TextStyle(fontSize: 30),
           // )),
           UserAccountsDrawerHeader(
+            decoration: BoxDecoration(color: Colors.indigoAccent),
             accountName: Text(
-              'John Doe',
+              'Milit Chawla',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            accountEmail: Text('johndoe@xyz.com'),
-            currentAccountPicture: FlutterLogo(),
+            accountEmail: Text('militchawla@gmail.com'),
+            currentAccountPicture: CircleAvatar(
+              backgroundImage: NetworkImage(
+                  'https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png'),
+            ),
           ),
           ListTile(
             leading: Icon(Icons.home),
             title: Text(
-              'Menu Item 1',
+              'All Tasks',
+              style: TextStyle(fontSize: 20),
+            ),
+            onTap: () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => MainScreen()));
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.add_task_rounded),
+            title: Text(
+              'Add Task',
+              style: TextStyle(fontSize: 20),
+            ),
+            onTap: () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => AddTaskScreen(addTaskCallback: (String title, String priority, String completeBy) {  },)));
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.logout),
+            title: Text(
+              'Log Out',
               style: TextStyle(fontSize: 20),
             ),
             onTap: () {
              Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => MyApp()));
             },
-          ),
-          ListTile(
-            leading: Icon(Icons.account_box),
-            title: Text(
-              'Menu Item 2',
-              style: TextStyle(fontSize: 20),
-            ),
-            // onTap: () {
-            //   Navigator.of(context).push(
-            //       MaterialPageRoute(builder: (context) => RegisterScreen()));
-            // },
-          ),
-          ListTile(
-            leading: Icon(Icons.logout),
-            title: Text(
-              'Menu Item 3',
-              style: TextStyle(fontSize: 20),
-            ),
-            // onTap: () {
-            //   Navigator.of(context).push(
-            //       MaterialPageRoute(builder: (context) => FirstRoute()));
-            // },
+            
           ),
         ],
       ),
